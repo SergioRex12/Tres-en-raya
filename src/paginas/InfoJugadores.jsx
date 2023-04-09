@@ -9,25 +9,28 @@ const InfoJugadores = () => {
     const {juego} = useJuego();
     const [jugador1, setJugador1] = useState("");
     const [jugador2, setJugador2] = useState("");
+    const [modo, setModo] = useState("amigo");
 
     const subitFormulario = (e) => {
         e.preventDefault();
-        if (jugador1.length > 1) juego.jugador1 = jugador1
-        if (jugador2.length > 1) juego.jugador2 = jugador2
+        if (jugador1.length > 1) juego.jugador1 = jugador1;
+        if (jugador2.length > 1) juego.jugador2 = jugador2;
+        juego.tipo = modo;
 
         navigate("/jugar");
-        
     }
 
     return ( 
         <section className="formulario-iniciar">
-
-            <select name="dificultad" id="dificultad" defaultValue={"amigo"}>
-                <option value="facil" disabled>Fácil (Proximamente)</option>
-                <option value="medio"disabled >Medio (Proximamente)</option>
-                <option value="imposible" disabled>Imposible (Proximamente)</option>
-                <option value="amigo">Partida contra un amigo</option>
-            </select>
+            <div className="titulo">
+                <p>Modo</p>
+                <select name="dificultad" id="dificultad" onChange={e => setModo(e.target.value)} defaultValue={"amigo"}>
+                    <option value="facil">Fácil</option>
+                    <option value="medio"disabled >Medio (Proximamente)</option>
+                    <option value="imposible" disabled>Imposible (Proximamente)</option>
+                    <option value="amigo">Partida contra un amigo</option>
+                </select>
+            </div>
 
             <form onSubmit={subitFormulario}>
                 <div>

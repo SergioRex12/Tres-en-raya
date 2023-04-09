@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useJuego from "../hooks/useJuego";
 import "./Jugar.css"
 
 const Jugar = () => {
     const [jugador1, setJugador1] = useState();
     const [jugador2, setJugador2] = useState();
-    const {juego, seleccionarPos, reiniciarPartida} = useJuego();
+    const {juego, seleccionarPos, reiniciarPartida, reiniciarObjetoJuego, seleccionarPosIa} = useJuego();
+    const navigate  = useNavigate();
 
     useEffect(() => {
-        console.log(juego);
-        setJugador1(juego.jugador1 || "test1");
-        setJugador2(juego.jugador2 || "test2");
+        setJugador1(juego.jugador1);
+        setJugador2(juego.jugador2);
+
+        if (juego.tipo != "amigo" && juego.turno === 1) seleccionarPosIa();
     }, [])
+
+    const volver = () => {
+        reiniciarObjetoJuego();
+        navigate("/", true);
+    }
 
     return ( 
         <>
@@ -42,8 +50,10 @@ const Jugar = () => {
                     <h2 id = 'player1'>{jugador1}</h2> 
                 </div>
 
-
-                <input type="button" value="Reiniciar Partida" onClick={reiniciarPartida} id="reset" />
+                <div className="botones">
+                    <input type="button" value="Reiniciar Partida" onClick={reiniciarPartida} id="reset" />
+                    <input type="button" value="Volver" onClick={volver} id="reset" />
+                </div>
 
                 <div>
                     <img id="jugador" src="img/1.png" />

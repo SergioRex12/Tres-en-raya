@@ -34,6 +34,12 @@
     text-transform: uppercase;
 }
 
+.info-partida .botones input {
+    display: block;
+    margin: auto;
+    margin: 10px auto;
+}
+
 @media (max-width: 480px) {
     .info-partida div img {
         width: 30%;
