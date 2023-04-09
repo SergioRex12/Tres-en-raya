@@ -1,0 +1,37 @@
+.formulario-iniciar {
+    background-color: #232c41;
+    padding: 20px 50px;
+    border-radius: 15px;
+}
+
+#dificultad, form div {
+    margin: 5px auto;
+}
+
+form div label {
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+    display: block;
+}
+
+form div input {
+    border-radius: 5px;
+}
+
+form button{
+    padding: 5px 15px;
+    color: white;
+    margin-top: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #3d4149;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+}
+
+body {
+    margin: auto;
+}
