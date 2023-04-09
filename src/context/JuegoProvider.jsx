@@ -127,8 +127,8 @@ const JuegoProvider = ({children}) => {
                 [false, null],
                 [false, null],
             ],
-            jugador1: "Jugador 1",
-            jugador2: "Jugador 2",
+            jugador1: juego.jugador1,
+            jugador2: juego.jugador2,
             final: false,
         })
     }
