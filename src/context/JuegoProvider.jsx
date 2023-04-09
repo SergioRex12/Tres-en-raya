@@ -40,7 +40,6 @@ const JuegoProvider = ({children}) => {
         }
 
         //Si es el turno de la IA no hago nada
-        console.log(juego);
         if (turno === 1 && tipo != "amigo") return;
 
         ////Revisamos si la pos esta ocupada
@@ -80,7 +79,6 @@ const JuegoProvider = ({children}) => {
         const id = item[2];
         
         const posTab = document.querySelector(`#p${id}`);
-        console.log(posTab);
         posTab.style.backgroundImage = `url('../img/${turno}.jpg')`;
         posTab.style.backgroundSize = "contain";
         
@@ -153,8 +151,6 @@ const JuegoProvider = ({children}) => {
        
         reiniciarObjetoJuego();
 
-        console.log(juego.turno === 1 && juego.tipo != "amigo");
-        console.log(`Turno ${juego.turno} Tipo ${juego.tipo}`);
         if (juego.turno === 1 && juego.tipo != "amigo") seleccionarPosIa();
             
     }
