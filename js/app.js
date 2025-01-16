@@ -1,8 +1,5 @@
 import { Game } from "./game.js";
 
-
-
-
 class App {
 
     constructor(){}

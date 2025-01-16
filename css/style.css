@@ -1,7 +1,11 @@
 
+body {
+    background-color: #111827;
+}
+
 .tablero {
     /*border-style: solid;*/
-    border:1px solid black;
+    border:1px solid #111827;
     border-spacing: 0px;
 }
 
