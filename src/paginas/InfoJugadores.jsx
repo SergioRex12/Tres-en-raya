@@ -26,7 +26,7 @@ const InfoJugadores = () => {
                 <p>Modo</p>
                 <select name="dificultad" id="dificultad" onChange={e => setModo(e.target.value)} defaultValue={"amigo"}>
                     <option value="facil">Fácil</option>
-                    <option value="medio"disabled >Medio (Proximamente)</option>
+                    <option value="medio">Medio (Proximamente)</option>
                     <option value="imposible" disabled>Imposible (Proximamente)</option>
                     <option value="amigo">Partida contra un amigo</option>
                 </select>

@@ -26,7 +26,19 @@ const JuegoProvider = ({children}) => {
 
     const seleccionarPosIa = () => {
         setTimeout(() => {
-            turnoIA();
+
+            switch (juego.tipo) {
+                case "facil":
+                    turnoIAFacil();      
+                    break;
+                case "medio":
+                    turnoIAMedio();      
+                    break;
+            
+                default:
+                    break;
+            }
+
         }, 500)
     }
 
@@ -67,46 +79,14 @@ const JuegoProvider = ({children}) => {
         if (juego.turno === 1 && tipo != "amigo") seleccionarPosIa();
     }
 
-    const turnoIA = () => {
-        const {tablero, turno} = juego;
-
-        console.log("Coloca la IA");
-
-        const posicionesLibres = tablero.filter(pos => !pos[0]);
-        const idRandom = Math.floor(Math.random() * posicionesLibres.length);
-        const item = posicionesLibres[idRandom];
-
-        const id = item[2];
-        
-        const posTab = document.querySelector(`#p${id}`);
-        posTab.style.backgroundImage = `url('../img/${turno}.jpg')`;
-        posTab.style.backgroundSize = "contain";
-        
-        tablero[id][0] = true;
-
-        //Ponemos el jugador
-        tablero[id][1] = turno;
-
-        //Comprobamos si hay ganador
-        const estado = comprobarRaya(turno);
-        if (estado) return;
-
-        //Cambiamos el turno
-        console.log("Cambio turno");
-
-        juego.turno == 0 ? juego.turno++ : juego.turno--;
-        setJuego(juego);
-        console.log("cambio turno ia");
-
-    }
-
+    
     //Comprueba si hay tres en raya
     const comprobarRaya = (turno) => {
         const {tablero} = juego;
 
         //Definimos las poses
         let posis = [];
-
+        
         for (let i = 0; i < 9; i++) {
             posis = [...posis, document.querySelector(`#p${i}`)];
         }
@@ -119,12 +99,13 @@ const JuegoProvider = ({children}) => {
         if (tablero[7][1] === turno && tablero[4][1] === turno && tablero[1][1] === turno) return ganadorFinal();
         if (tablero[5][1] === turno && tablero[4][1] === turno && tablero[3][1] === turno) return ganadorFinal();
         if (tablero[0][1] === turno && tablero[1][1] === turno && tablero[2][1] === turno) return ganadorFinal();
-
+        
         const posisOcupadas = juego.tablero.filter(pos => pos[0] == true)
         
         if (posisOcupadas.length === 9) {juego.final = true; return alert("Hubo un empate!")};
         
     }
+    
 
     //Acabamos el juego con un ganador
     const ganadorFinal = () => {
@@ -171,6 +152,100 @@ const JuegoProvider = ({children}) => {
             [false, null, 8],
         ]
         juego.final = false;
+
+    }
+
+    const turnoIAFacil = () => {
+        const {tablero, turno} = juego;
+
+        console.log("Coloca la IA");
+
+        const posicionesLibres = tablero.filter(pos => !pos[0]);
+        const idRandom = Math.floor(Math.random() * posicionesLibres.length);
+        const item = posicionesLibres[idRandom];
+
+        const id = item[2];
+        
+        const posTab = document.querySelector(`#p${id}`);
+        posTab.style.backgroundImage = `url('../img/${turno}.jpg')`;
+        posTab.style.backgroundSize = "contain";
+        
+        tablero[id][0] = true;
+
+        //Ponemos el jugador
+        tablero[id][1] = turno;
+
+        //Comprobamos si hay ganador
+        const estado = comprobarRaya(turno);
+        if (estado) return;
+
+        //Cambiamos el turno
+        console.log("Cambio turno");
+
+        juego.turno == 0 ? juego.turno++ : juego.turno--;
+        setJuego(juego);
+        console.log("cambio turno ia");
+
+    }
+
+    const turnoIAMedio = () => {
+        const {tablero, turno} = juego;
+
+        console.log("Coloca la IA");
+
+        //0 la IA busca ganar, 1 la ia frena la victoria del rival
+        //const modo = Math.floor(Math.random() * 1);
+        const modo = 1;
+        let id = -1;
+
+        if (modo === 1) {
+
+        } else {
+            console.log("La ia busca frenar victoria");
+            if (tablero[2][1] === 0 || tablero[5][1] === 0 || tablero[8][1] === 0) {
+                const posicionesLibres = [tablero[2], tablero[5], tablero[8]].filter(pos => !pos[0]);
+                console.log(posicionesLibres);
+                const idRandom = Math.floor(Math.random() * posicionesLibres.length);
+                const item = posicionesLibres[idRandom] || [];
+                id = item[2] || -1;
+                console.log(item);
+            };
+        }
+
+        //if (tablero[2][1] === turno && tablero[5][1] === turno && tablero[8][1] === turno) ;
+        //if (tablero[6][1] === turno && tablero[7][1] === turno && tablero[8][1] === turno) ;
+        //if (tablero[6][1] === turno && tablero[3][1] === turno && tablero[0][1] === turno) ;
+        //if (tablero[6][1] === turno && tablero[4][1] === turno && tablero[2][1] === turno) ;
+        //if (tablero[8][1] === turno && tablero[4][1] === turno && tablero[0][1] === turno) ;
+        //if (tablero[7][1] === turno && tablero[4][1] === turno && tablero[1][1] === turno) ;
+        //if (tablero[5][1] === turno && tablero[4][1] === turno && tablero[3][1] === turno) ;
+        //if (tablero[0][1] === turno && tablero[1][1] === turno && tablero[2][1] === turno) ;
+
+        if (id == -1) {
+            return turnoIAFacil();
+        }
+
+        console.log(id);
+        
+        const posTab = document.querySelector(`#p${id}`);
+        posTab.style.backgroundImage = `url('../img/${turno}.jpg')`;
+        posTab.style.backgroundSize = "contain";
+        
+        tablero[id][0] = true;
+
+        //Ponemos el jugador
+        tablero[id][1] = turno;
+
+        //Comprobamos si hay ganador
+        const estado = comprobarRaya(turno);
+        if (estado) return;
+
+        //Cambiamos el turno
+        console.log("Cambio turno");
+
+        juego.turno == 0 ? juego.turno++ : juego.turno--;
+        setJuego(juego);
+        console.log("cambio turno ia");
 
     }
 
